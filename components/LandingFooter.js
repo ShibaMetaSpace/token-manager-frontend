@@ -117,6 +117,7 @@ const LandingFooter = () => {
                 <ul className={classes.menuItem}>
                   <li>Privacy Policy</li>
                   <li>Terms and Conditions</li>
+                  <li>Disclaimer</li>
                   <li>Contact us</li>
                 </ul>
               </div>

@@ -21,7 +21,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   section: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
+    paddingBottom: theme.spacing(8)
   },
   sectionTitle: {
     color: '#5b53a2',
