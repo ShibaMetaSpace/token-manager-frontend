@@ -7,6 +7,7 @@ import {
   Fade
 } from '@material-ui/core'
 import Particles from 'react-particles-js'
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
   headerWrapper: {
@@ -65,7 +66,12 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     left: 0,
     width: '100vw',
-    zIndex: 999
+    zIndex: 999,
+    transition: 'all .3s ease'
+  },
+  navWhite: {
+    background: '#fff',
+    boxShadow: '0px 6px 5px 1px rgba(110, 25, 194, 0.24)'
   },
   navInner: {
     display: 'flex',
@@ -83,7 +89,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '18px',
     fontWeight: 'bold',
     marginLeft: theme.spacing(2),
-    color: '#fff'
+    color: '#fff',
+    transition: 'all .3s ease'
+  },
+  logoTextWhite: {
+    color: '#222'
   },
   menu: {
     '& ul': {
@@ -101,6 +111,14 @@ const useStyles = makeStyles((theme) => ({
             color: '#2bc9b4'
           }
         }
+      }
+    }
+  },
+  menuWhite: {
+    '& a': {
+      color: '#222 !important',
+      '&:hover': {
+        color: '#6e19c2 !important'
       }
     }
   }
@@ -125,8 +143,9 @@ const particleParams = {
   }
 }
 
-const LandingHeader = () => {
+const LandingHeader = props => {
   const classes = useStyles()
+  const { scroll } = props
 
   return (
     <div className={classes.headerWrapper}>
@@ -134,21 +153,21 @@ const LandingHeader = () => {
         className={classes.particleWrapper}
         params={particleParams}
       />
-      <div className={classes.nav}>
+      <div className={scroll < 200 ? classes.nav : clsx(classes.nav, classes.navWhite)}>
         <Container maxWidth="lg">
           <div className={classes.navInner}>
             <div className={classes.logo}>
               <Image
-                src="/static/logo-white.png"
+                src={scroll < 200 ? '/static/logo-white.png' : '/static/logo-black.png'}
                 alt="Drachma Network"
                 width={30}
                 height={30}
               />
-              <div className={classes.logoText}>
+              <div className={scroll < 200 ? classes.logoText : clsx(classes.logoText, classes.logoTextWhite)}>
                 Drachma Network
               </div>
             </div>
-            <div className={classes.menu}>
+            <div className={scroll < 200 ? classes.menu : clsx(classes.menu, classes.menuWhite)}>
               <ul>
                 <li>
                   <Link href="/generator">

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import LandingHeader from '../components/LandingHeader'
 import LandingGenerator from '../components/LandingGenerator'
@@ -9,14 +9,29 @@ import LandingFooter from '../components/LandingFooter'
 
 const Home = () => {
   const [chain, setChain] = useState('ethereum')
+  const [viewHeight, setViewHeight] = useState(null)
+  const [scroll, setScroll] = useState(0) 
+
+  const handleScroll = () => {
+    setScroll(window.pageYOffset)
+  }
+
+  useEffect(() => {
+    setViewHeight(window.innerHeight)
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  })
   
   return (
     <div>
-      <LandingHeader />
-      <LandingGenerator />
+      <LandingHeader scroll={scroll} />
+      <LandingGenerator viewHeight={viewHeight} scroll={scroll} />
       <LandingTokenType chain={chain} setChain={setChain} />
-      <LandingFeatures chain={chain} />
-      <LandingMultisender />
+      <LandingFeatures chain={chain} viewHeight={viewHeight} scroll={scroll} />
+      <LandingMultisender viewHeight={viewHeight} scroll={scroll} />
       <LandingFooter />
     </div>
   )
