@@ -9,9 +9,12 @@ import 'slick-carousel/slick/slick-theme.css'
 import '../styles/styles.scss'
 import theme from '../theme'
 
+const Noop = ({ Component, pageProps, darkMode, setDarkMode }) => <Component {...pageProps} darkMode={darkMode} setDarkMode={setDarkMode} />
+
 const MyApp = props => {
   const { Component, pageProps } = props
   const [darkMode, setDarkMode] = useState(false)
+  const Layout = Component.Layout || Noop
 
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
@@ -30,7 +33,7 @@ const MyApp = props => {
       <ThemeProvider theme={darkMode ? theme('dark') : theme('light')}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Component {...pageProps} darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Layout Component={Component} pageProps={pageProps} darkMode={darkMode} setDarkMode={setDarkMode} />
       </ThemeProvider>
     </Fragment>
   )
